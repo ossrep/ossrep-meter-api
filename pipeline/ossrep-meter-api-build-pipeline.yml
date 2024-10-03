@@ -1,0 +1,22 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: ossrep-meter-api-build-pipeline
+  labels:
+    app: ossrep-meter-api
+spec:
+  params:
+    - name: git-repository-url
+  tasks:
+    - name: git-clone
+      taskRef:
+        name: git-clone
+        kind: ClusterTask
+      params:
+        - name: url
+          value: $(params.git-repository-url)
+      workspaces:
+        - name: output
+          workspace: workspace
+  workspaces:
+    - name: workspace

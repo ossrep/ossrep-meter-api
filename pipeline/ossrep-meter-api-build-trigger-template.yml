@@ -1,0 +1,21 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: ossrep-meter-api-build-trigger-template
+  labels:
+    app: ossrep-meter-api
+spec:
+  params:
+    - name: git-repository-url
+      default: "https://github.com/ossrep/ossrep-meter-api.git"
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1
+      kind: PipelineRun
+      metadata:
+        generateName: ossrep-meter-api-build-pipeline-
+      spec:
+        pipelineRef:
+          name: ossrep-meter-api-build-pipeline
+        params:
+          - name: git-repository-url
+            value: $(tt.params.git-repository-url)

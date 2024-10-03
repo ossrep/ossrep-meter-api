@@ -1,0 +1,17 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: ossrep-meter-api-build-event-listener-route
+  labels:
+    app: ossrep-meter-api
+spec:
+  host: ossrep-meter-api-build.apps.ocp.lab.snimmo.com
+  to:
+    kind: Service
+    name: el-ossrep-meter-api-build-event-listener
+    weight: 100
+  port:
+    targetPort: http-listener
+  tls:
+    termination: edge
+  wildcardPolicy: None

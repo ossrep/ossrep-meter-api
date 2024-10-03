@@ -1,0 +1,5 @@
+resources:
+  - ossrep-meter-api-build-pipeline.yml
+  - ossrep-meter-api-build-trigger-template.yml
+  - ossrep-meter-api-build-event-listener.yml
+  - ossrep-meter-api-build-event-listener-route.yml
