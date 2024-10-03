@@ -1,0 +1,28 @@
+apiVersion: tekton.dev/v1beta1
+kind: ClusterTask
+metadata:
+  name: maven-extract-project-version
+  labels:
+    app: ossrep-meter-api
+spec:
+  params:
+    - name: pathToPom
+      type: string
+      description: The path to the pom.xml file
+      default: "pom.xml"
+  workspaces:
+    - name: source
+      description: Workspace containing the pom.xml file
+  results:
+    - name: version
+      description: The version read from the pom.xml file
+  steps:
+    - name: read-version
+      image: registry.access.redhat.com/ubi9/ubi-minimal
+      script: |
+        cd $(workspaces.source.path)
+        # Extract the version using grep and sed
+        VERSION=$(grep -m1 -oP '(?<=<version>)[^<]+' $(params.pathToPom))
+        echo "Project version: $VERSION"
+        # Write the version to the results file
+        echo -n "$VERSION" > $(results.version.path)

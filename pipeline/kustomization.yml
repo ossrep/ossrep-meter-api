@@ -1,4 +1,5 @@
 resources:
+  - tasks/maven-extract-project-version-cluster-task.yml
   - ossrep-meter-api-build-pipeline.yml
   - ossrep-meter-api-build-trigger-template.yml
   - ossrep-meter-api-build-event-listener.yml

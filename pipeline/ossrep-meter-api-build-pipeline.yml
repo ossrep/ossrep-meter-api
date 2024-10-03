@@ -37,6 +37,29 @@ spec:
           workspace: maven-settings
       runAfter:
         - git-clone
+    - name: maven-extract-project-version
+      taskRef:
+        name: maven-extract-project-version
+        kind: ClusterTask
+      workspaces:
+        - name: source
+          workspace: workspace
+      runAfter:
+        - git-clone
+    - name: buildah-bud-and-push
+      taskRef:
+        name: buildah
+        kind: ClusterTask
+      params:
+        - name: DOCKERFILE
+          value: './Containerfile'
+        - name: IMAGE
+          value: 'quay.io/ossrep/ossrep-meter-api:$(tasks.maven-extract-project-version.results.version)'
+      workspaces:
+        - name: source
+          workspace: workspace
+      runAfter:
+        - maven-verify
   workspaces:
     - name: workspace
     - name: maven-settings
