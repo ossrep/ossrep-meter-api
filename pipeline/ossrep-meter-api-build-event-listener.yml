@@ -11,5 +11,15 @@ spec:
       bindings:
         - ref: github-push
           kind: ClusterTriggerBinding
+      interceptors:
+        - ref:
+            name: "github"
+          params:
+            - name: "secretRef"
+              value:
+                secretName: ossrep-meter-api-github-webhook-secret
+                secretKey: token
+            - name: "eventTypes"
+              value: [ "push" ]
       template:
         ref: ossrep-meter-api-build-trigger-template

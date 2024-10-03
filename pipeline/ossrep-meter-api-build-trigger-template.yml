@@ -19,3 +19,14 @@ spec:
         params:
           - name: git-repository-url
             value: $(tt.params.git-repository-url)
+        workspaces:
+          - name: workspace
+            volumeClaimTemplate:
+              spec:
+                accessModes:
+                  - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 100Mi
+          - name: maven-settings
+            emptyDir: {}
