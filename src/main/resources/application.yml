@@ -1,0 +1,33 @@
+quarkus:
+  banner:
+    enabled: false
+  swagger-ui:
+    always-include: true
+    operations-sorter: method
+  smallrye-openapi:
+    info-title: ossrep-meter-api
+    info-version: 1.0.0
+
+'%dev':
+  quarkus:
+    log:
+      level: INFO
+      category:
+        "com.ossrep":
+          level: DEBUG
+
+'%test':
+  quarkus:
+    log:
+      level: INFO
+      category:
+        "com.ossrep":
+          level: DEBUG
+
+'%prod':
+  quarkus:
+    log:
+      level: INFO
+      category:
+        "com.ossrep":
+          level: INFO
