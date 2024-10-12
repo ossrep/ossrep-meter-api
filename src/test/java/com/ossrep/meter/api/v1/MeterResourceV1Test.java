@@ -15,12 +15,14 @@ public class MeterResourceV1Test {
     public void getByMeterId() {
         MeterV1 got = given()
                 .when()
-                .get("/api/v1/meters/{meterId}", "TEST1")
+                .get("/api/v1/meters/{tdspMeterId}", "TEST00000001")
                 .then()
                 .statusCode(Response.Status.OK.getStatusCode())
                 .extract().as(MeterV1.class);
         assertNotNull(got);
-        assertEquals(got.meterId(), "TEST1");
+        assertEquals(got.tdspMeterId(), "TEST00000001");
+        assertEquals(got.tdsp(), "CNP");
+        assertEquals(got.iso(), "ERCOT");
     }
 
 }

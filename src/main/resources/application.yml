@@ -1,6 +1,9 @@
 quarkus:
   banner:
     enabled: false
+  hibernate-orm:
+    database:
+      generation: none
   swagger-ui:
     always-include: true
     operations-sorter: method
@@ -10,6 +13,12 @@ quarkus:
 
 '%dev':
   quarkus:
+    flyway:
+      migrate-at-start: true
+      locations: db/migration,db/testdata
+    hibernate-orm:
+      log:
+        sql: true
     log:
       level: INFO
       category:
@@ -18,6 +27,12 @@ quarkus:
 
 '%test':
   quarkus:
+    flyway:
+      migrate-at-start: true
+      locations: db/migration,db/testdata
+    hibernate-orm:
+      log:
+        sql: true
     log:
       level: INFO
       category:
@@ -26,6 +41,12 @@ quarkus:
 
 '%prod':
   quarkus:
+    flyway:
+      migrate-at-start: true
+      locations: db/migration
+    hibernate-orm:
+      log:
+        sql: true
     log:
       level: INFO
       category:
