@@ -1,1 +1,54 @@
-{}
+quarkus:
+  banner:
+    enabled: false
+  hibernate-orm:
+    database:
+      generation: none
+  datasource:
+    devservices:
+      image-name: timescale/timescaledb:2.18.0-pg17
+  keycloak:
+    devservices:
+      container-memory-limit: 1500M
+
+'%dev':
+  quarkus:
+    log:
+      level: INFO
+      category:
+        "com.ossrep":
+          level: DEBUG
+    hibernate-orm:
+      log:
+        sql: true
+    flyway:
+      migrate-at-start: true
+      locations: db/migration,db/testdata
+
+'%test':
+  quarkus:
+    log:
+      level: INFO
+      category:
+        "com.ossrep":
+          level: DEBUG
+    hibernate-orm:
+      log:
+        sql: true
+    flyway:
+      migrate-at-start: true
+      locations: db/migration,db/testdata
+
+'%prod':
+  quarkus:
+    log:
+      level: INFO
+      category:
+        "com.ossrep":
+          level: INFO
+    hibernate-orm:
+      log:
+        sql: true
+    flyway:
+      migrate-at-start: true
+      locations: db/migration

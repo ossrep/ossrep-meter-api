@@ -1,0 +1,11 @@
+quarkus create app --wrapper --no-code \
+    -x config-yaml,rest-jackson \
+    com.ossrep:ossrep-meter-api:0.0.1-SNAPSHOT
+
+quarkus ext add oidc,smallrye-health,micrometer-registry-prometheus,hibernate-validator,hibernate-orm-panache,jdbc-postgresql,flyway
+quarkus ext add smallrye-openapi
+
+
+podman run -p 8080:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:26.0.7 start-dev
+
+
