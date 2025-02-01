@@ -34,4 +34,17 @@ public class MeterResourceV1Test {
         assertThat(saved).isEqualTo(got);
     }
 
+    @Test
+    @TestSecurity(user = "testUser", roles = {Role.METER_READ, Role.METER_WRITE})
+    public void getByTdspMeterId() {
+        MeterV1 got = given()
+                .when()
+                .get("/api/v1/meters/{tdspMeterId}", "test-0001234561")
+                .then()
+                .statusCode(Response.Status.OK.getStatusCode())
+                .extract().as(MeterV1.class);
+        assertThat(got).isNotNull().extracting("tdspMeterId").isEqualTo("test-0001234561");
+        assertThat(got).extracting("tdspCode").isEqualTo("ONCOR");
+    }
+
 }
